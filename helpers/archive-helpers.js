@@ -28,14 +28,31 @@ exports.initialize = function(pathsObj) {
 exports.readListOfUrls = function() {
 };
 
-exports.isUrlInList = function() {
+exports.isUrlInList = function(url) {
+  var ans = false;
+  fs.readFile(exports.paths.list, function (err, data) {
+    if (err) {
+      return;
+    } else {
+      var allUrls = data.split('\n');
+    }
+    for (var i = 0; i < allUrls.length; i++) {
+      if (url === allUrls[i]) {
+        ans = true;
+      }
+    }
+  }); 
+  return ans;
 };
 
 exports.addUrlToList = function() {
+  
 };
 
 exports.isUrlArchived = function() {
+
 };
 
 exports.downloadUrls = function() {
+
 };
