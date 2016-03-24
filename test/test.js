@@ -84,6 +84,7 @@ describe('archive helpers', function() {
 
       archive.readListOfUrls(function(urls) {
         expect(urls).to.deep.equal(urlArray);
+        console.log(urlArray);
         done();
       });
     });

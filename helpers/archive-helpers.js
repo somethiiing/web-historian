@@ -1,3 +1,23 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
@@ -25,24 +45,33 @@ exports.initialize = function(pathsObj) {
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
-exports.readListOfUrls = function() {
+exports.readListOfUrls = function(callback) {
+  fs.readFile(exports.paths.list, 'utf8', function(err, data) {
+    if (err) {
+      console.log('You have an error: ' + err);
+    } else {
+      data = data.split('\n');
+      callback(data);
+    }
+  });
+
 };
 
-exports.isUrlInList = function(url) {
-  var ans = false;
-  fs.readFile(exports.paths.list, function (err, data) {
+exports.isUrlInList = function(url, callback) {
+  fs.readFile(exports.paths.list, 'utf8', function (err, data) {
     if (err) {
-      return;
+      callback(err);
     } else {
+      var ans = false;
       var allUrls = data.split('\n');
-    }
-    for (var i = 0; i < allUrls.length; i++) {
-      if (url === allUrls[i]) {
-        ans = true;
+      for (var i = 0; i < allUrls.length; i++) {
+        if (url === allUrls[i]) {
+          ans = true;
+        }
       }
+      callback(err, ans);
     }
   }); 
-  return ans;
 };
 
 exports.addUrlToList = function() {
@@ -56,3 +85,32 @@ exports.isUrlArchived = function() {
 exports.downloadUrls = function() {
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
