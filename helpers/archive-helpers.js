@@ -70,8 +70,13 @@ exports.isUrlArchived = function(url, callback) {
 
 };
 
-exports.downloadUrls = function() {
-
+exports.downloadUrls = function(urls) {
+  _.each (urls, function (url) {
+    if (!url) {
+      return;
+    } 
+    request('http://' + url).pipe(fs.createWriteStream(exports.paths.archivedSites + '/' + url));
+  });
 };
 
 
